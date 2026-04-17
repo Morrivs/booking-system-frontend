@@ -14,6 +14,7 @@ import type { Property } from "../../models/property.model";
 import { useAuthStore } from "../../store/auth.store";
 import { PropertyCard } from "../../components/properties/PropertyCart";
 import { CreatePropertyModal } from "../../components/properties/CreatePropertyModal";
+import { Navbar } from "../../components/common/navbar";
 
 
 export default function Home() {
@@ -48,42 +49,10 @@ export default function Home() {
     <div className="min-h-screen bg-gray-950 text-white">
  
       {/* ── Header ── */}
-      <header className="border-b border-gray-800 bg-gray-950/80 backdrop-blur-sm sticky top-0 z-10">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center shadow-lg shadow-indigo-500/30">
-              <HomeIcon size={15} className="text-white" />
-            </div>
-            <span className="text-white font-semibold tracking-tight">Propiedades</span>
-          </div>
- 
-          {user ? (
-            <div className="flex items-center gap-3">
-              <button
-                onClick={() => setShowModal(true)}
-                className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold px-4 py-2 rounded-xl shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer"
-              >
-                <Plus size={15} />
-                Nueva propiedad
-              </button>
-              <div className="flex items-center gap-2 pl-3 border-l border-gray-800">
-                <div className="w-8 h-8 rounded-full bg-indigo-600/20 border border-indigo-500/20 flex items-center justify-center">
-                  <User size={14} className="text-indigo-400" />
-                </div>
-                <span className="text-sm text-gray-400 hidden sm:block">{user.name ?? user.email}</span>
-              </div>
-            </div>
-          ) : (
-            <a
-              href="/login"
-              className="flex items-center gap-2 text-sm text-gray-400 hover:text-indigo-400 transition-colors"
-            >
-              <LogIn size={15} />
-              Iniciar sesión
-            </a>
-          )}
-        </div>
-      </header>
+      <Navbar 
+        showCreate={!!user} 
+        onCreateClick={() => setShowModal(true)} 
+      />
  
       <main className="max-w-6xl mx-auto px-6 py-10">
  

@@ -18,7 +18,15 @@ export const PropertyCard = ({ property, index }: { property: Property; index: n
  
       {/* Image placeholder */}
       <div className="relative h-40 bg-gray-800/60 flex items-center justify-center overflow-hidden">
-        <HomeIcon size={40} className="text-gray-700 group-hover:text-gray-600 transition-colors duration-300" />
+        {property.images && property.images.length > 0 ? (
+          <img 
+            src={property.images[0].url} 
+            alt={property.title}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          />
+        ) : (
+          <HomeIcon size={40} className="text-gray-700 group-hover:text-gray-600 transition-colors duration-300" />
+        )}
         {/* Price badge */}
         <div className="absolute bottom-3 left-3 flex items-center gap-1.5 bg-gray-950/90 border border-gray-700 rounded-lg px-2.5 py-1.5">
           <DollarSign size={13} className="text-indigo-400" />

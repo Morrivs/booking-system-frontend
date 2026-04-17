@@ -34,18 +34,8 @@ import { DateHelper } from "../../helpers/DateHelper";
 import { ReviewForm } from "../../components/review/ReviewForm";
 import { ReviewCard } from "../../components/review/ReviewCard";
 import { BookingWidget } from "../../components/booking/BookingWidget";
+import { Navbar } from "../../components/common/navbar";
 
-// ─── Helpers ─────────────────────────────────────────────────────────────────
-
-
-
-
-// ─── Review Card ──────────────────────────────────────────────────────────────
-
-
-// ─── Booking Widget ───────────────────────────────────────────────────────────
-
-// ─── Review Form ──────────────────────────────────────────────────────────────
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 export default function PropertyDetail() {
@@ -101,19 +91,7 @@ export default function PropertyDetail() {
     <div className="min-h-screen bg-gray-950 text-white">
 
       {/* ── Header ── */}
-      <header className="border-b border-gray-800 bg-gray-950/80 backdrop-blur-sm sticky top-0 z-10">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center gap-4">
-          <button
-            onClick={() => navigate(-1)}
-            className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors cursor-pointer"
-          >
-            <ArrowLeft size={16} />
-            Volver
-          </button>
-          <div className="h-4 w-px bg-gray-800" />
-          <span className="text-sm text-gray-500 truncate">{property.title}</span>
-        </div>
-      </header>
+      <Navbar breadcrumb={property.title} />
 
       <main className="max-w-6xl mx-auto px-6 py-10">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -123,7 +101,15 @@ export default function PropertyDetail() {
 
             {/* Image placeholder */}
             <div className="relative h-72 bg-gray-900 border border-gray-800 rounded-2xl flex items-center justify-center overflow-hidden">
-              <HomeIcon size={64} className="text-gray-800" />
+              {property.images && property.images.length > 0 ? (
+                <img 
+                  src={property.images[0].url} 
+                  alt={property.title}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <HomeIcon size={64} className="text-gray-800" />
+              )}
             </div>
 
             {/* Title & meta */}

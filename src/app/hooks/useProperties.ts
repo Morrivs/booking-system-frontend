@@ -15,3 +15,10 @@ export const useProperty = (id: string) => {
     enabled: !!id,
   });
 };
+
+export const useMyProperties = () => {
+  return useQuery({
+    queryKey: ["my-properties"],
+    queryFn: propertyService.getMyProperties,
+  });
+};

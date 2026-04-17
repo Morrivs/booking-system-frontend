@@ -19,27 +19,8 @@ import {
 import { DateHelper } from "../../helpers/DateHelper";
 import { bookingService } from "../../services/booking.service";
 import { useBookingActions } from "../../hooks/booking/useBookings";
-
-const STATUS_MAP: Record<
-  string,
-  { label: string; icon: React.ReactNode; className: string }
-> = {
-  PENDING: {
-    label: "Pendiente",
-    icon: <Clock size={13} />,
-    className: "text-yellow-400 bg-yellow-500/10 border-yellow-500/20",
-  },
-  CONFIRMED: {
-    label: "Confirmada",
-    icon: <CheckCircle size={13} />,
-    className: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20",
-  },
-  CANCELLED: {
-    label: "Cancelada",
-    icon: <XCircle size={13} />,
-    className: "text-red-400 bg-red-500/10 border-red-500/20",
-  },
-};
+import { ConfirmDialog } from "../common/ConfirmDialog";
+import { STATUS_MAP } from "../../helpers/constants/Booking";
 
 // ─── Price header reutilizable ────────────────────────────────────────────────
 function PriceHeader({ price }: { price: number }) {
@@ -57,45 +38,6 @@ function PriceHeader({ price }: { price: number }) {
   );
 }
 
-// ─── Confirm dialog ───────────────────────────────────────────────────────────
-function ConfirmDialog({
-  message,
-  onConfirm,
-  onCancel,
-  isLoading,
-  confirmLabel = "Confirmar",
-  confirmClass = "bg-indigo-600 hover:bg-indigo-500 shadow-indigo-500/25 hover:shadow-indigo-500/40",
-}: {
-  message: string;
-  onConfirm: () => void;
-  onCancel: () => void;
-  isLoading: boolean;
-  confirmLabel?: string;
-  confirmClass?: string;
-}) {
-  return (
-    <div className="bg-gray-800/60 border border-gray-700 rounded-xl p-4 space-y-3">
-      <p className="text-sm text-gray-300">{message}</p>
-      <div className="flex gap-2">
-        <button
-          onClick={onConfirm}
-          disabled={isLoading}
-          className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-white text-sm font-semibold shadow-lg hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-60 disabled:cursor-not-allowed transition-all duration-200 cursor-pointer ${confirmClass}`}
-        >
-          {isLoading ? <Loader2 size={13} className="animate-spin" /> : null}
-          {confirmLabel}
-        </button>
-        <button
-          onClick={onCancel}
-          disabled={isLoading}
-          className="flex-1 py-2 rounded-lg border border-gray-700 text-gray-400 text-sm font-medium hover:border-gray-600 hover:text-gray-200 disabled:opacity-60 transition-all duration-200 cursor-pointer"
-        >
-          Volver
-        </button>
-      </div>
-    </div>
-  );
-}
 
 // ─── Component ────────────────────────────────────────────────────────────────
 export const BookingWidget = ({
@@ -197,7 +139,7 @@ export const BookingWidget = ({
   // Guests with a cancelled booking can re-book
   const showBookingInfo = userBooking && (isHost || userBooking.status !== 'CANCELLED');
   if (showBookingInfo) {
-    const status = STATUS_MAP[userBooking.status as string] ?? STATUS_MAP['PENDING'];
+    const status = STATUS_MAP[userBooking.status as 'PENDING' | 'CONFIRMED' | 'CANCELLED'] ?? STATUS_MAP['PENDING'];
     const isPending = userBooking.status === 'PENDING';
 
     return (

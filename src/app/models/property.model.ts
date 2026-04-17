@@ -1,3 +1,4 @@
+import type { PropertyImage } from "./PropertyImage";
 import type { User } from "./user";
 
 export interface Property {
@@ -10,4 +11,5 @@ export interface Property {
   createdAt: Date;
 
   host?: User;
+  images?: PropertyImage[];
 }
