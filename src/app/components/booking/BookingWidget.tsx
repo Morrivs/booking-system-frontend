@@ -76,8 +76,8 @@ export const BookingWidget = ({
     mutationFn: () =>
       bookingService.create({
         propertyId: property.id,
-        startDate: dayjs(startDate).toString(),
-        endDate: dayjs(endDate).toString(),
+        startDate: dayjs(startDate).toISOString(),
+        endDate: dayjs(endDate).toISOString(),
       }),
     onSuccess: () => {
       setSuccess(true);
