@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { DollarSign, X, AlertCircle, Loader2, ImagePlus, Upload } from "lucide-react";
+import { DollarSign, X, Loader2, Upload } from "lucide-react";
 import { propertyService } from "../../services/property.service";
 
 const schema = z.object({

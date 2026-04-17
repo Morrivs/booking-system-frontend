@@ -3,7 +3,6 @@ import {
   Home as HomeIcon,
   LogIn,
   LogOut,
-  User,
   CalendarDays,
   Building2,
   ChevronDown,

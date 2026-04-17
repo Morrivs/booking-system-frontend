@@ -3,7 +3,7 @@ import type { Property } from "../../models/property.model";
 import { StarRating } from "./StarRating";
 import { Link } from "react-router-dom";
 
-export const PropertyCard = ({ property, index }: { property: Property; index: number }) => {
+export const PropertyCard = ({ property }: { property: Property; index: number }) => {
   const initials = property.host?.name
     ? property.host.name
         .split(" ")

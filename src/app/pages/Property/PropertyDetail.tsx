@@ -1,31 +1,16 @@
-import { useState } from "react";
-import dayjs from "dayjs";
-import { useParams, useNavigate } from "react-router-dom";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
 import {
-  ArrowLeft,
-  Star,
-  StarHalf,
   Home as HomeIcon,
   User,
   Calendar,
   CheckCircle,
-  XCircle,
-  Clock,
   MessageSquare,
-  LogIn,
-  DollarSign,
-  Send,
   AlertCircle,
   Loader2,
-  BadgeCheck,
 } from "lucide-react";
 import { useAuthStore } from "../../store/auth.store";
 import { useProperty } from "../../hooks/useProperties";
-import { useCreateReview, usePropertyReviews, useDeleteReview } from "../../hooks/review/userReview";
-import { bookingService } from "../../services/booking.service";   // adjust
-import { reviewService } from "../../services/review.service";     // adjust
-import type { Property } from "../../models/property.model";
 import type { Review } from "../../models/review.model";
 import type { Booking } from "../../models/booking.model";
 import { useMyBookings } from "../../hooks/booking/useBookings";
@@ -35,28 +20,25 @@ import { ReviewForm } from "../../components/review/ReviewForm";
 import { ReviewCard } from "../../components/review/ReviewCard";
 import { BookingWidget } from "../../components/booking/BookingWidget";
 import { Navbar } from "../../components/common/navbar";
+import { usePropertyReviews } from "../../hooks/review/userReview";
 
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 export default function PropertyDetail() {
   const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { user } = useAuthStore();
 
-  // Property
-    const { data: property, isLoading: loadingProp, error: propError } = useProperty(id!);
+  const { data: property, isLoading: loadingProp, error: propError } = useProperty(id!);
 
-  // User's booking for this property
-    const { data: userBooking, refetch: refetchBooking } = useMyBookings(
-    (all: Booking[]) => all.find((b) => String(b.propertyId) === String(id)) ?? null
-    );
+  const { data: userBooking, refetch: refetchBooking } = useMyBookings(
+  (all: Booking[]) => all.find((b) => String(b.propertyId) === String(id)) ?? null
+  );
 
   // Reviews
   const { data: reviews, refetch: refetchReviews } = usePropertyReviews(id!);
 
-  // Can the user leave a review?
-  // Condition: has a confirmed booking (status=1) AND end date is in the past
+
   const canReview =
     !!user &&
     !!userBooking &&

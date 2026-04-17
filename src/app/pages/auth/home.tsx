@@ -2,12 +2,9 @@ import { useState, useMemo } from "react";
 import {
   Search,
   SlidersHorizontal,
-  Plus,
   Home as HomeIcon,
   TriangleAlert,
   Loader2,
-  User,
-  LogIn,
 } from "lucide-react";
 import { useProperties } from "../../hooks/useProperties";
 import type { Property } from "../../models/property.model";

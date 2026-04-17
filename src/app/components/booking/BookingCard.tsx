@@ -3,12 +3,9 @@ import {
   Building2,
   Calendar,
   DollarSign,
-  CheckCircle,
   XCircle,
-  Clock,
   Check,
   X,
-  Loader2,
   User,
   ChevronRight,
 } from "lucide-react";

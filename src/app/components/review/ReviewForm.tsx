@@ -5,8 +5,6 @@ import { reviewService } from "../../services/review.service";
 import { StarPicker } from "../properties/StarPicker";
 
 export const ReviewForm = ({
-  propertyId,
-  userId,
   bookingId,
   onSubmitted,
 }: {

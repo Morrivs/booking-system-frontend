@@ -8,7 +8,6 @@ import {
   AlertCircle,
   Calendar,
   CheckCircle,
-  Clock,
   DollarSign,
   Loader2,
   LogIn,
