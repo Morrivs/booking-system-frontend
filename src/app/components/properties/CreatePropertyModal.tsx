@@ -61,6 +61,7 @@ export const CreatePropertyModal = ({
       }
     },
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["properties"] });
       queryClient.invalidateQueries({ queryKey: ["my-properties"] });
       onSuccess?.();
       onClose();
