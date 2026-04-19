@@ -6,6 +6,7 @@ import { Mail, AlertCircle, Loader2, User } from "lucide-react";
 import { authService } from "../../services/auth";
 import { PasswordField } from "../../components/passwordField";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // ── Zod schema ────────────────────────────────────────────────────────────────
 const registerSchema = z
@@ -32,14 +33,16 @@ const registerSchema = z
 type RegisterFormData = z.infer<typeof registerSchema>;
 
 // ── Config ────────────────────────────────────────────────────────────────────
-const APP_NAME = "Mi Aplicación";
-const APP_LOGO = null; // Replace with your logo URL, e.g. "/logo.svg"
+const APP_NAME = "Booker";
+const APP_LOGO = null; 
 
 // ── Component ─────────────────────────────────────────────────────────────────
 export default function Register() {
   const methods = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
   });
+
+  const navigate = useNavigate();
 
   const {
     register,
@@ -54,7 +57,9 @@ export default function Register() {
       authService.register({name: data.name, email: data.email, password:data.password}),
     onSuccess: () => {
       setServerError(null);
-      // TODO: redirect here
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000); 
     },
     onError: (error: any) => {
       const msg =
