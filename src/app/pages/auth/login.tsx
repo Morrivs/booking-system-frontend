@@ -22,9 +22,8 @@ const loginSchema = z.object({
 
 type LoginFormData = z.infer<typeof loginSchema>;
 
-// ── Config — edit these ───────────────────────────────────────────────────────
-const APP_NAME = "Mi Aplicación";
-const APP_LOGO = null; // Replace with your logo URL, e.g. "/logo.svg"
+const APP_NAME = "Booker";
+const APP_LOGO = null; 
 
 // ── Component ─────────────────────────────────────────────────────────────────
 export default function Login() {
